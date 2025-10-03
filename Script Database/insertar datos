@@ -1,0 +1,56 @@
+
+-- Categorías principales
+INSERT INTO Categoria (nombre) VALUES
+('Historia del Cusco'),
+('Lengua Quechua'),
+('Ciencia y Naturaleza'),
+('Geografía'),
+('Turismo y Cultura');
+
+-- Lecciones
+INSERT INTO Leccion (id_categoria, titulo, descripcion) VALUES
+(1, 'Inicios del Imperio Inca', 'Orígenes del Tahuantinsuyo en el Cusco.'),
+(1, 'Batalla de Sacsayhuamán', 'Hecho histórico en la resistencia contra los españoles.'),
+(2, 'Saludos en Quechua', 'Aprender saludos básicos en quechua.'),
+(2, 'Números en Quechua', 'Contar del 1 al 10 en quechua.'),
+(3, 'Animales de los Andes', 'Conocer especies típicas de la región andina.'),
+(4, 'Regiones Naturales del Perú', 'Costa, Sierra y Selva.'),
+(5, 'Machu Picchu', 'Maravilla del mundo y patrimonio cultural.');
+
+-- Contenidos (bilingües)
+INSERT INTO Contenido (id_leccion, idioma, texto) VALUES
+-- Lección 1
+(1, 'es', 'El Imperio Inca comenzó en el Cusco alrededor del siglo XIII.'),
+(1, 'qu', 'Inka Qhapaq Tawantinsuyu Qosqopi qallarikuq karqan siglo XIII.'),
+-- Lección 3
+(3, 'es', 'Hola en quechua se dice “Rimaykullayki”.'),
+(3, 'qu', '“Rimaykullayki” nirqan “Hola”.'),
+-- Lección 4
+(4, 'es', 'Los números del 1 al 3 en quechua son: Huk (1), Iskay (2), Kimsa (3).'),
+(4, 'qu', 'Yupaykuna: Huk (1), Iskay (2), Kimsa (3).'),
+-- Lección 5
+(5, 'es', 'Entre los animales típicos andinos están la llama, alpaca y cóndor.'),
+(5, 'qu', 'Andespa uywakunapi llamakuna, alpacakuna, kunturkuna kashanku.'),
+-- Lección 7
+(7, 'es', 'Machu Picchu es una ciudadela inca construida en el siglo XV.'),
+(7, 'qu', 'Machu Picchuqa inka llaqtañanmi, siglo XVpi rurasqa.');
+
+-- Preguntas (Trivias)
+INSERT INTO Pregunta (id_leccion, idioma, enunciado, opcion_a, opcion_b, opcion_c, opcion_d, correcta) VALUES
+-- Lección 1
+(1, 'es', '¿Dónde comenzó el Imperio Inca?', 'Cusco', 'Lima', 'Arequipa', 'Puno', 'a'),
+-- Lección 3
+(3, 'es', '¿Cómo se dice “Hola” en Quechua?', 'Ñuqanchik', 'Rimaykullayki', 'Sulpayki', 'Allinllachu', 'b'),
+-- Lección 4
+(4, 'es', '¿Cómo se dice “dos” en Quechua?', 'Huk', 'Iskay', 'Kimsa', 'Tawa', 'b'),
+-- Lección 5
+(5, 'es', '¿Qué ave es típica de los Andes?', 'Gaviota', 'Cóndor', 'Pelícano', 'Pato', 'b'),
+-- Lección 7
+(7, 'es', '¿En qué siglo se construyó Machu Picchu?', 'XIII', 'XIV', 'XV', 'XVI', 'c');
+
+-- Resultados (ejemplo de progreso ficticio)
+INSERT INTO Resultado (id_leccion, puntaje, fecha) VALUES
+(1, 100, '2025-09-10'),
+(3, 80, '2025-09-11'),
+(4, 60, '2025-09-12'),
+(7, 90, '2025-09-12');

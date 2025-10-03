@@ -1,0 +1,17 @@
+-- Ver todas las categorías
+SELECT * FROM Categoria;
+
+-- Mostrar lecciones de "Lengua Quechua"
+SELECT titulo, descripcion FROM Leccion WHERE id_categoria = 2;
+
+-- Contenido bilingüe de la lección "Saludos en Quechua"
+SELECT idioma, texto FROM Contenido WHERE id_leccion = 3;
+
+-- Preguntas de la lección "Números en Quechua"
+SELECT enunciado, opcion_a, opcion_b, opcion_c, opcion_d, correcta
+FROM Pregunta WHERE id_leccion = 4;
+
+-- Promedio de puntajes por lección
+SELECT id_leccion, AVG(puntaje) as promedio
+FROM Resultado
+GROUP BY id_leccion;

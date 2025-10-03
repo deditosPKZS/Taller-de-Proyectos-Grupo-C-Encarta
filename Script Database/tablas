@@ -1,0 +1,46 @@
+-- ==========================================
+-- ESQUEMA
+-- ==========================================
+CREATE TABLE IF NOT EXISTS Categoria (
+    id_categoria INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Leccion (
+    id_leccion INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_categoria INTEGER NOT NULL,
+    titulo TEXT NOT NULL,
+    descripcion TEXT,
+    FOREIGN KEY (id_categoria) REFERENCES Categoria(id_categoria)
+);
+
+CREATE TABLE IF NOT EXISTS Contenido (
+    id_contenido INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_leccion INTEGER NOT NULL,
+    idioma TEXT NOT NULL,      -- 'es' o 'qu'
+    texto TEXT,
+    recurso TEXT,
+    FOREIGN KEY (id_leccion) REFERENCES Leccion(id_leccion)
+);
+
+CREATE TABLE IF NOT EXISTS Pregunta (
+    id_pregunta INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_leccion INTEGER NOT NULL,
+    idioma TEXT NOT NULL,
+    enunciado TEXT NOT NULL,
+    opcion_a TEXT,
+    opcion_b TEXT,
+    opcion_c TEXT,
+    opcion_d TEXT,
+    correcta TEXT NOT NULL,
+    recurso TEXT,
+    FOREIGN KEY (id_leccion) REFERENCES Leccion(id_leccion)
+);
+
+CREATE TABLE IF NOT EXISTS Resultado (
+    id_resultado INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_leccion INTEGER NOT NULL,
+    puntaje INTEGER,
+    fecha TEXT,
+    FOREIGN KEY (id_leccion) REFERENCES Leccion(id_leccion)
+);
