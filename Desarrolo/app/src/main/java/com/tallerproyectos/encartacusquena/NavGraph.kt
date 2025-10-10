@@ -1,68 +1,102 @@
 package com.tallerproyectos.encartacusquena
 
+import android.util.Log
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import androidx.navigation.NavHostController
 
 @Composable
 fun AppNavGraph(navController: NavHostController, repository: Repository) {
+
     NavHost(navController = navController, startDestination = "idioma") {
 
-        // Pantalla idioma (elige idioma y navega a categorias)
+        // 1️⃣ Idioma
         composable("idioma") {
-            IdiomaScreen { chosenLang ->
+            IdiomaScreen { chosenLang: String ->
                 repository.selectedLanguage = chosenLang
+                Log.d("AppNavGraph", "Idioma elegido: $chosenLang")
                 navController.navigate("categorias")
             }
         }
 
-        // Categorías (devuelve id + nombre)
+        // 2️⃣ Categorías
         composable("categorias") {
-            val categorias = repository.getCategorias()
+            val categorias = repository.safeGetCategorias()
             CategoriaScreen(
                 categorias = categorias,
                 onCategoriaClick = { categoria ->
-                    navController.navigate("lecciones/${categoria.id}")
+                    navController.navigate("conceptos/${categoria.id}")
+                },
+                onBack = { navController.popBackStack() } // 🔹 aquí pasamos el back
+            )
+        }
+
+
+        // 3️⃣ Conceptos
+        composable(
+            route = "conceptos/{categoriaId}",
+            arguments = listOf(navArgument("categoriaId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val categoriaId = backStackEntry.arguments?.getInt("categoriaId") ?: 0
+            val conceptos = repository.safeGetConceptosPorCategoria(categoriaId)
+
+            ConceptoScreen(
+                categoriaId = categoriaId,
+                conceptos = conceptos,
+                repository = repository,
+                onTriviaClick = { trivia ->
+                    navController.navigate("preguntas/${trivia.id}")
+                },
+                onBack = {
+                    navController.popBackStack()
                 }
             )
         }
 
-        // Lecciones por categoriaId (Int)
+        // 4️⃣ Preguntas -> Usamos la versión limpia de PreguntaScreen (archivo PreguntaScreen.kt)
         composable(
-            route = "lecciones/{categoriaId}",
-            arguments = listOf(navArgument("categoriaId") { type = NavType.IntType })
+            route = "preguntas/{triviaId}",
+            arguments = listOf(navArgument("triviaId") { type = NavType.IntType })
         ) { backStackEntry ->
-            val categoriaId = backStackEntry.arguments?.getInt("categoriaId") ?: 0
-            val lecciones = repository.getLeccionesPorCategoria(categoriaId)
-            LeccionScreen(
-                lecciones = lecciones,
-                onLeccionClick = { leccion ->
-                    navController.navigate("preguntas/${leccion.id}")
+            val triviaId = backStackEntry.arguments?.getInt("triviaId") ?: 0
+            val preguntas = repository.safeGetPreguntasPorTrivia(triviaId)
+
+            PreguntaScreen(
+                preguntas = preguntas,
+                triviaId = triviaId,
+                repository = repository,
+                onBack = {
+                    // Volver a Conceptos (popBackStack o pop a la ruta que prefieras)
+                    navController.popBackStack()
                 },
-                onBack = { navController.popBackStack() }
+                onFinish = { id ->
+                    // Al terminar la trivia vamos a Resultados
+                    navController.navigate("resultados/$id")
+                }
             )
         }
 
-        // Preguntas por leccionId (Int)
+        // 5️⃣ Resultados
         composable(
-            route = "preguntas/{leccionId}",
-            arguments = listOf(navArgument("leccionId") { type = NavType.IntType })
+            route = "resultados/{triviaId}",
+            arguments = listOf(navArgument("triviaId") { type = NavType.IntType })
         ) { backStackEntry ->
-            val leccionId = backStackEntry.arguments?.getInt("leccionId") ?: 0
-            val preguntas = repository.getPreguntasPorLeccion(leccionId)
-            PreguntaScreen(
-                preguntas = preguntas,
-                leccionId = leccionId,
-                onFinish = { puntaje ->
-                    repository.saveResultado(leccionId, puntaje)
-                    navController.popBackStack("lecciones/${0}", false) // volver a lista de lecciones (ok la navegación queda simple)
-                    // mejor: navController.popBackStack() dos veces según navegación; para ahora, vuelve atrás
-                },
-                onBack = { navController.popBackStack() }
+            val triviaId = backStackEntry.arguments?.getInt("triviaId") ?: 0
+
+            ResultadosScreen(
+                triviaId = triviaId,
+                repository = repository,
+                onBack = {
+                    val categoriaId = repository.getCategoriaIdPorTrivia(triviaId)
+                    navController.navigate("conceptos/$categoriaId") {
+                        // no forzamos inclusive aquí para evitar popUpTo mal formado
+                    }
+                }
             )
         }
+
     }
 }
