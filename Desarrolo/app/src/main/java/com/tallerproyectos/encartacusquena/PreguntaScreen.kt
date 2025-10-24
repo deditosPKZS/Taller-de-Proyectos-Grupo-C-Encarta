@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 
 package com.tallerproyectos.encartacusquena
 
@@ -12,14 +12,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 
-
 @Composable
 fun PreguntaScreen(
     preguntas: List<Pregunta>,
     triviaId: Int,
     repository: Repository,
     onBack: () -> Unit,
-    onFinish: (Int) -> Unit
+    onFinish: (Int) -> Unit,
+
 ) {
     var index by remember { mutableStateOf(0) }
     var puntaje by remember { mutableStateOf(0) }
@@ -27,16 +27,18 @@ fun PreguntaScreen(
     var showResultDialog by remember { mutableStateOf(false) }
     val total = preguntas.size
 
-    Scaffold(topBar = {
-        TopAppBar(
-            title = { Text("Trivia") },
-            navigationIcon = {
-                IconButton(onClick = onBack) {
-                    Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver")
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Trivia") },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver")
+                    }
                 }
-            }
-        )
-    }) { innerPadding ->
+            )
+        }
+    ) { innerPadding ->
         if (preguntas.isEmpty()) {
             Box(
                 modifier = Modifier
@@ -62,7 +64,13 @@ fun PreguntaScreen(
             Text(p.enunciado, style = MaterialTheme.typography.titleMedium)
             Spacer(Modifier.height(16.dp))
 
-            val options = listOf("a" to p.opcionA, "b" to p.opcionB, "c" to p.opcionC, "d" to p.opcionD)
+            val options = listOf(
+                "a" to p.opcionA,
+                "b" to p.opcionB,
+                "c" to p.opcionC,
+                "d" to p.opcionD
+            )
+
             options.forEach { (key, opt) ->
                 opt?.let {
                     Row(
@@ -104,6 +112,7 @@ fun PreguntaScreen(
         }
     }
 
+    // 🔹 Al terminar, muestra un diálogo con el resultado
     if (showResultDialog) {
         AlertDialog(
             onDismissRequest = { showResultDialog = false },

@@ -7,6 +7,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import androidx.navigation.compose.rememberNavController
+
 
 @Composable
 fun AppNavGraph(navController: NavHostController, repository: Repository) {
@@ -34,7 +36,6 @@ fun AppNavGraph(navController: NavHostController, repository: Repository) {
             )
         }
 
-
         // 3️⃣ Conceptos
         composable(
             route = "conceptos/{categoriaId}",
@@ -52,11 +53,14 @@ fun AppNavGraph(navController: NavHostController, repository: Repository) {
                 },
                 onBack = {
                     navController.popBackStack()
-                }
+                },
+                navController = navController
             )
         }
 
-        // 4️⃣ Preguntas -> Usamos la versión limpia de PreguntaScreen (archivo PreguntaScreen.kt)
+// ❌ elimina la vieja versión de media_demo que estaba aquí
+
+// 4️⃣ Preguntas
         composable(
             route = "preguntas/{triviaId}",
             arguments = listOf(navArgument("triviaId") { type = NavType.IntType })
@@ -68,18 +72,12 @@ fun AppNavGraph(navController: NavHostController, repository: Repository) {
                 preguntas = preguntas,
                 triviaId = triviaId,
                 repository = repository,
-                onBack = {
-                    // Volver a Conceptos (popBackStack o pop a la ruta que prefieras)
-                    navController.popBackStack()
-                },
-                onFinish = { id ->
-                    // Al terminar la trivia vamos a Resultados
-                    navController.navigate("resultados/$id")
-                }
+                onBack = { navController.popBackStack() },
+                onFinish = { id -> navController.navigate("resultados/$id") }
             )
         }
 
-        // 5️⃣ Resultados
+// 5️⃣ Resultados
         composable(
             route = "resultados/{triviaId}",
             arguments = listOf(navArgument("triviaId") { type = NavType.IntType })
@@ -91,10 +89,18 @@ fun AppNavGraph(navController: NavHostController, repository: Repository) {
                 repository = repository,
                 onBack = {
                     val categoriaId = repository.getCategoriaIdPorTrivia(triviaId)
-                    navController.navigate("conceptos/$categoriaId") {
-                        // no forzamos inclusive aquí para evitar popUpTo mal formado
-                    }
-                }
+                    navController.navigate("conceptos/$categoriaId")
+                },
+                navController = navController
+            )
+        }
+
+// 6️⃣ Media Demo
+        composable("media_demo") {
+            ImageVideoScreen(
+                onBack = { navController.popBackStack() },
+                imagenAssets = listOf("imagenes/qorikancha.jpg", "imagenes/otra.jpg"),
+                videoAsset = "videos/qorikancha.mp4"
             )
         }
 

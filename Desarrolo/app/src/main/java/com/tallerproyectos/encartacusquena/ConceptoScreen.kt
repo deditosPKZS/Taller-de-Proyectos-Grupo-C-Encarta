@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 @Composable
 fun ConceptoScreen(
@@ -21,7 +22,8 @@ fun ConceptoScreen(
     conceptos: List<Concepto>,
     repository: Repository,
     onTriviaClick: (Trivia) -> Unit,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    navController: NavController // ← mantenemos este parámetro
 ) {
     Scaffold(
         topBar = {
@@ -40,7 +42,9 @@ fun ConceptoScreen(
     ) { innerPadding ->
         if (conceptos.isEmpty()) {
             Box(
-                modifier = Modifier.fillMaxSize().padding(innerPadding),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
                 contentAlignment = Alignment.Center
             ) {
                 Text("No hay conceptos disponibles", textAlign = TextAlign.Center)
@@ -66,6 +70,18 @@ fun ConceptoScreen(
                             Spacer(modifier = Modifier.height(6.dp))
                             Text(concepto.contenido)
                             Spacer(modifier = Modifier.height(10.dp))
+
+                            // 🔹 Botón para ver imágenes y video del concepto
+                            Button(
+                                onClick = { navController.navigate("media_demo") },
+                                modifier = Modifier.align(Alignment.Start)
+                            ) {
+                                Text("Ver Multimedia")
+                            }
+
+                            Spacer(modifier = Modifier.height(8.dp))
+
+                            // 🔹 Botón para ir a la trivia del concepto
                             Button(
                                 onClick = {
                                     val trivia = repository.getTriviaByCategoria(categoriaId)

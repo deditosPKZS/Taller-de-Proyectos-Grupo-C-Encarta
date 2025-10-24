@@ -12,30 +12,34 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.navigation.NavHostController
 
 @Composable
 fun ResultadosScreen(
     triviaId: Int,
     repository: Repository,
-    onBack: () -> Unit
+    onBack: () -> Unit,
+    navController: NavHostController   // ✅ tipo correcto
 ) {
     val preguntas = remember { repository.safeGetPreguntasPorTrivia(triviaId) }
     val resultadosGuardados = remember { repository.safeGetResultadosPorTrivia(triviaId) }
     val ultimoPuntaje = resultadosGuardados.firstOrNull()?.puntaje ?: 0
 
-    Scaffold(topBar = {
-        TopAppBar(
-            title = { Text("Resultados") },
-            navigationIcon = {
-                IconButton(onClick = onBack) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Volver"
-                    )
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Resultados") },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Volver"
+                        )
+                    }
                 }
-            }
-        )
-    }) { innerPadding ->
+            )
+        }
+    ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -46,6 +50,15 @@ fun ResultadosScreen(
                 "Puntaje total: $ultimoPuntaje / ${preguntas.size}",
                 fontWeight = FontWeight.Bold
             )
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // 🔹 Botón para abrir la pantalla multimedia
+            Button(
+                onClick = { navController.navigate("media_demo") } // ✅ navega a las imágenes y video
+            ) {
+                Text("Ver imágenes y video")
+            }
+
             Spacer(modifier = Modifier.height(12.dp))
 
             LazyColumn {

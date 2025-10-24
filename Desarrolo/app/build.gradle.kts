@@ -42,6 +42,9 @@ android {
 }
 
 dependencies {
+    // Coil para imágenes en Compose
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -60,7 +63,13 @@ dependencies {
     implementation(libs.roomKtx)
     implementation(libs.androidx.navigation.compose)
     implementation("androidx.navigation:navigation-compose:2.7.7")
+    // ExoPlayer para audio y vídeo offline
+    implementation("com.google.android.exoplayer:exoplayer:2.19.1")
+    implementation("com.google.android.exoplayer:exoplayer-core:2.19.1")
+    implementation("com.google.android.exoplayer:exoplayer-ui:2.19.1")
 
+    // Optional: Accompanist for permissions or pager (if you want gallery pager)
+    implementation("com.google.accompanist:accompanist-pager:0.31.5-beta")
 
 
     testImplementation(libs.junit)

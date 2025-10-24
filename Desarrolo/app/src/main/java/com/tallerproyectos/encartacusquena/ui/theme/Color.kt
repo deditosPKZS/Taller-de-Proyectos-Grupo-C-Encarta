@@ -1,19 +1,34 @@
 package com.tallerproyectos.encartacusquena.ui.theme
 
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
-// 🎨 Colores suaves educativos
-val LightBlue = Color(0xFF90CAF9)
-val LightGreen = Color(0xFFA5D6A7)
-val LightOrange = Color(0xFFFFE082)
-val LightPurple = Color(0xFFCE93D8)
-val SoftGray = Color(0xFFF5F5F5)
+val Purple1 = Color(0xFFD863EB) // #D863EB
+val Purple2 = Color(0xFFEB63BB) // #EB63BB
+val Coral = Color(0xFFEB6369)   // #EB6369
+val Violet = Color(0xFFAC63EB)  // #AC63EB
+val Orangeish = Color(0xFFEB7863)// #EB7863
 
-// Colores que venían por defecto en tu template (los necesitas porque Theme.kt los usa)
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+val LightColors = lightColorScheme(
+    primary = Purple1,
+    onPrimary = Color.White,
+    secondary = Purple2,
+    onSecondary = Color.White,
+    error = Coral,
+    background = Color(0xFFFFF8FF),
+    onBackground = Color.Black,
+    surface = Color(0xFFFFFFFF),
+    onSurface = Color.Black,
+)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+val DarkColors = darkColorScheme(
+    primary = Purple1,
+    onPrimary = Color.White,
+    secondary = Purple2,
+    onSecondary = Color.White,
+    background = Color(0xFF1A0B1A),
+    onBackground = Color.White,
+    surface = Color(0xFF221322),
+    onSurface = Color.White
+)
