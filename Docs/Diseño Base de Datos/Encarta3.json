@@ -1,0 +1,664 @@
+{
+    "type": "database",
+    "name": "Encarta30",
+    "objects": [
+        {
+            "type": "table",
+            "database": null,
+            "name": "Categoria",
+            "withoutRowId": false,
+            "strict": false,
+            "ddl": "CREATE TABLE Categoria (\n  id_categoria INTEGER PRIMARY KEY AUTOINCREMENT,\n  id_idioma TEXT,\n  nombre TEXT,\n  FOREIGN KEY(id_idioma) REFERENCES Idioma(codigo)\n)",
+            "columns": [
+                {
+                    "name": "id_categoria",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "PRIMARY KEY",
+                            "definition": "PRIMARY KEY AUTOINCREMENT"
+                        }
+                    ]
+                },
+                {
+                    "name": "id_idioma",
+                    "type": "TEXT"
+                },
+                {
+                    "name": "nombre",
+                    "type": "TEXT"
+                }
+            ],
+            "constraints": [
+                {
+                    "type": "FOREIGN KEY",
+                    "definition": "FOREIGN KEY(id_idioma) REFERENCES Idioma(codigo)\n"
+                }
+            ],
+            "rows": [
+                [
+                    1,
+                    "es",
+                    "Historia del Cusco"
+                ],
+                [
+                    2,
+                    "es",
+                    "Cultura y Tradiciones"
+                ],
+                [
+                    3,
+                    "es",
+                    "Lengua Quechua"
+                ],
+                [
+                    4,
+                    "es",
+                    "Arquitectura Inca"
+                ],
+                [
+                    5,
+                    "es",
+                    "Festividades del Cusco"
+                ],
+                [
+                    6,
+                    "qu",
+                    "Qosqo Qhapaq Ñanpi Historia"
+                ],
+                [
+                    7,
+                    "qu",
+                    "Runa Simi y Ayllu Tradiciones"
+                ],
+                [
+                    8,
+                    "qu",
+                    "Runa Simi Yachay"
+                ],
+                [
+                    9,
+                    "qu",
+                    "Sapa Inka Ruraykuna"
+                ],
+                [
+                    10,
+                    "qu",
+                    "Raymi Qhapaqkuna"
+                ]
+            ]
+        },
+        {
+            "type": "table",
+            "database": null,
+            "name": "Concepto",
+            "withoutRowId": false,
+            "strict": false,
+            "ddl": "CREATE TABLE Concepto (\n  id_concepto INTEGER PRIMARY KEY AUTOINCREMENT,\n  id_categoria INTEGER,\n  titulo TEXT,\n  contenido TEXT,\n  recurso TEXT, imagen TEXT, video TEXT,\n  FOREIGN KEY(id_categoria) REFERENCES Categoria(id_categoria)\n)",
+            "columns": [
+                {
+                    "name": "id_concepto",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "PRIMARY KEY",
+                            "definition": "PRIMARY KEY AUTOINCREMENT"
+                        }
+                    ]
+                },
+                {
+                    "name": "id_categoria",
+                    "type": "INTEGER"
+                },
+                {
+                    "name": "titulo",
+                    "type": "TEXT"
+                },
+                {
+                    "name": "contenido",
+                    "type": "TEXT"
+                },
+                {
+                    "name": "recurso",
+                    "type": "TEXT"
+                },
+                {
+                    "name": "imagen",
+                    "type": "TEXT"
+                },
+                {
+                    "name": "video",
+                    "type": "TEXT"
+                }
+            ],
+            "constraints": [
+                {
+                    "type": "FOREIGN KEY",
+                    "definition": "FOREIGN KEY(id_categoria) REFERENCES Categoria(id_categoria)\n"
+                }
+            ],
+            "rows": [
+                [
+                    1,
+                    1,
+                    "Qorikancha",
+                    "El Qorikancha, o Templo del Sol, fue el centro religioso más importante del Imperio Inca. Estaba dedicado al dios Inti (Sol) y cubierto con planchas de oro que reflejaban su luz.",
+                    null,
+                    "imagenes\/Qoricancha.png",
+                    "videos\/Qoricanchav.mp4"
+                ],
+                [
+                    2,
+                    1,
+                    "Sacsayhuamán",
+                    "Fortaleza ceremonial ubicada al norte del Cusco, construida con enormes bloques de piedra perfectamente encajados. Era escenario de rituales importantes como el Inti Raymi.",
+                    null,
+                    "imagenes\/Sacsayhuaman.png",
+                    "videos\/Sacsayhuamanv.mp4"
+                ],
+                [
+                    3,
+                    1,
+                    "Fundación del Cusco",
+                    "Según la leyenda, Manco Cápac y Mama Ocllo, enviados por el dios Sol, fundaron el Cusco al hundirse la vara de oro en el cerro Huanacauri.",
+                    null,
+                    "imagenes\/Fundacion_Cusco.png",
+                    null
+                ],
+                [
+                    4,
+                    2,
+                    "Inti Raymi",
+                    "El Inti Raymi es una festividad inca en honor al dios Sol, celebrada cada 24 de junio en el Cusco. Marca el solsticio de invierno en el hemisferio sur.",
+                    null,
+                    "imagenes\/Inti_Raymi.png",
+                    "videos\/Intiv.mp4"
+                ],
+                [
+                    5,
+                    2,
+                    "Vestimenta Tradicional",
+                    "La vestimenta andina varía según la región, pero destaca el uso del poncho, las polleras y los chullos, tejidos con lana de alpaca o vicuña.",
+                    null,
+                    "imagenes\/Vestimenta.png",
+                    null
+                ],
+                [
+                    6,
+                    2,
+                    "Gastronomía del Cusco",
+                    "Platos típicos como el chiri uchu, el cuy chactado y la chicha de jora reflejan la herencia andina y colonial.",
+                    null,
+                    "imagenes\/Gastronomia.png",
+                    null
+                ],
+                [
+                    7,
+                    3,
+                    "Saludos en Quechua",
+                    "El saludo más común es \"Rimaykullayki\" (Hola). Otras formas son \"Allinllachu?\" (¿Cómo estás?) y \"Sulpayki\" (Gracias).",
+                    null,
+                    null,
+                    "videos\/Saludos.mp4"
+                ],
+                [
+                    8,
+                    3,
+                    "Lengua Quechua Básica",
+                    "El quechua fue lengua oficial del Tahuantinsuyo. Actualmente, se habla en Perú, Bolivia, Ecuador y parte de Argentina y Chile.",
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    9,
+                    3,
+                    "Expresiones Cotidianas",
+                    "\"Allin punchay\" significa buenos días, \"Tupananchiskama\" quiere decir hasta pronto, y \"Ñuqaqa Edsonmi kani\" equivale a \"Yo soy Edson\".",
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    10,
+                    4,
+                    "Machu Picchu",
+                    "Ciudad sagrada construida en el siglo XV, ubicada a 2,430 msnm. Fue residencia real y centro religioso del Inca Pachacútec.",
+                    null,
+                    "imagenes\/Machupicchu.png",
+                    "videos\/Machupicchuv.mp4"
+                ],
+                [
+                    11,
+                    4,
+                    "Andenes Agrícolas",
+                    "Los incas desarrollaron terrazas agrícolas para cultivar en terrenos inclinados, controlando el agua y evitando la erosión.",
+                    null,
+                    "imagenes\/Andenes.png",
+                    null
+                ],
+                [
+                    12,
+                    4,
+                    "Camino Inca",
+                    "El Qhapaq Ñan fue una red de caminos de más de 30,000 km que unía todo el imperio desde Colombia hasta Chile.",
+                    null,
+                    "imagenes\/Camino_Inca.png",
+                    null
+                ],
+                [
+                    13,
+                    5,
+                    "Corpus Christi",
+                    "Celebración religiosa sincrética que combina tradiciones católicas y andinas. Las imágenes de santos desfilan por el Cusco acompañadas de música y danzas.",
+                    null,
+                    "imagenes\/Corpus.png",
+                    null
+                ],
+                [
+                    14,
+                    5,
+                    "Señor de los Temblores",
+                    "Patrón del Cusco, venerado cada Lunes Santo. Su imagen fue considerada milagrosa tras el terremoto de 1650.",
+                    null,
+                    "imagenes\/Señor_Temblores.png",
+                    null
+                ],
+                [
+                    15,
+                    5,
+                    "Navidad Cusqueña",
+                    "La feria de Santurantikuy se realiza cada 24 de diciembre en la Plaza de Armas, donde artesanos venden nacimientos y tallados.",
+                    null,
+                    "imagenes\/Navidad.png",
+                    null
+                ],
+                [
+                    16,
+                    6,
+                    "Qorikancha",
+                    "Intipa wasi Qosqopi, inkaq wak’a hatun, ñawpaq ñanpi kawsayniyuq wasinmi.",
+                    null,
+                    "imagenes\/Qoricancha.png",
+                    "videos\/Qoricanchav.mp4"
+                ],
+                [
+                    17,
+                    7,
+                    "Rimay",
+                    "Runasimi rimay: \"Rimaykullayki\" nirqan \"Hola\".",
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    18,
+                    8,
+                    "Yachay",
+                    "Runa Simi yachaykunata rimaykuna, ñawpaq runakunamanta qillqakunata.",
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    19,
+                    9,
+                    "Pachakuti",
+                    "Sapa Inka Pachakutiq, Inkaq suyukuna mast’ariq runa hatun kamachiqmi karqan.",
+                    null,
+                    null,
+                    null
+                ],
+                [
+                    20,
+                    10,
+                    "Inti Raymi",
+                    "Inti Raymiqa Qosqopi raymipi tukuy runakunapaqmi, Intita yupaychaypaqmi ruwasqa.",
+                    null,
+                    "imagenes\/Inti_Raymi.png",
+                    "videos\/Intiv.mp4"
+                ]
+            ]
+        },
+        {
+            "type": "table",
+            "database": null,
+            "name": "Idioma",
+            "withoutRowId": false,
+            "strict": false,
+            "ddl": "CREATE TABLE Idioma (\n  codigo TEXT PRIMARY KEY,\n  nombre TEXT\n)",
+            "columns": [
+                {
+                    "name": "codigo",
+                    "type": "TEXT",
+                    "constraints": [
+                        {
+                            "type": "PRIMARY KEY",
+                            "definition": "PRIMARY KEY"
+                        }
+                    ]
+                },
+                {
+                    "name": "nombre",
+                    "type": "TEXT"
+                }
+            ],
+            "rows": [
+                [
+                    "es",
+                    "Español"
+                ],
+                [
+                    "qu",
+                    "Quechua"
+                ]
+            ]
+        },
+        {
+            "type": "table",
+            "database": null,
+            "name": "Pregunta",
+            "withoutRowId": false,
+            "strict": false,
+            "ddl": "CREATE TABLE Pregunta (\n  id_pregunta INTEGER PRIMARY KEY AUTOINCREMENT,\n  id_trivia INTEGER,\n  enunciado TEXT,\n  opcion_a TEXT,\n  opcion_b TEXT,\n  opcion_c TEXT,\n  opcion_d TEXT,\n  correcta TEXT,\n  FOREIGN KEY(id_trivia) REFERENCES Trivia(id_trivia)\n)",
+            "columns": [
+                {
+                    "name": "id_pregunta",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "PRIMARY KEY",
+                            "definition": "PRIMARY KEY AUTOINCREMENT"
+                        }
+                    ]
+                },
+                {
+                    "name": "id_trivia",
+                    "type": "INTEGER"
+                },
+                {
+                    "name": "enunciado",
+                    "type": "TEXT"
+                },
+                {
+                    "name": "opcion_a",
+                    "type": "TEXT"
+                },
+                {
+                    "name": "opcion_b",
+                    "type": "TEXT"
+                },
+                {
+                    "name": "opcion_c",
+                    "type": "TEXT"
+                },
+                {
+                    "name": "opcion_d",
+                    "type": "TEXT"
+                },
+                {
+                    "name": "correcta",
+                    "type": "TEXT"
+                }
+            ],
+            "constraints": [
+                {
+                    "type": "FOREIGN KEY",
+                    "definition": "FOREIGN KEY(id_trivia) REFERENCES Trivia(id_trivia)\n"
+                }
+            ],
+            "rows": [
+                [
+                    1,
+                    1,
+                    "¿Dónde comenzó el Imperio Inca?",
+                    "Cusco",
+                    "Lima",
+                    "Arequipa",
+                    "Puno",
+                    "a"
+                ],
+                [
+                    2,
+                    1,
+                    "¿Quién fue el primer Inca según la leyenda?",
+                    "Túpac Yupanqui",
+                    "Manco Cápac",
+                    "Pachacútec",
+                    "Atahualpa",
+                    "b"
+                ],
+                [
+                    3,
+                    1,
+                    "¿Qué significado tiene la palabra \"Cusco\"?",
+                    "Centro del mundo",
+                    "Montaña sagrada",
+                    "Tierra fértil",
+                    "Lugar del Sol",
+                    "a"
+                ],
+                [
+                    4,
+                    2,
+                    "¿Cómo se dice \"Hola\" en Quechua?",
+                    "Uqanchik",
+                    "Rimaykullayki",
+                    "Sulpayki",
+                    "Allinllachu",
+                    "b"
+                ],
+                [
+                    5,
+                    2,
+                    "¿Qué significa \"Allin Punchay\"?",
+                    "Buenas tardes",
+                    "Buenos días",
+                    "Buenas noches",
+                    "Gracias",
+                    "b"
+                ],
+                [
+                    6,
+                    2,
+                    "¿Qué quiere decir \"Tupananchiskama\"?",
+                    "Hasta pronto",
+                    "Nos vemos mañana",
+                    "Cuídate",
+                    "Adiós para siempre",
+                    "a"
+                ],
+                [
+                    7,
+                    3,
+                    "¿En qué siglo fue construida Machu Picchu?",
+                    "XIV",
+                    "XV",
+                    "XVI",
+                    "XIII",
+                    "b"
+                ],
+                [
+                    8,
+                    3,
+                    "¿Qué función tenían los andenes incas?",
+                    "Decoración",
+                    "Defensa militar",
+                    "Agricultura",
+                    "Ceremonias",
+                    "c"
+                ],
+                [
+                    9,
+                    4,
+                    "¿Cuándo se celebra el Inti Raymi?",
+                    "21 de junio",
+                    "24 de junio",
+                    "28 de julio",
+                    "1 de agosto",
+                    "b"
+                ],
+                [
+                    10,
+                    4,
+                    "¿Qué se conmemora en el Señor de los Temblores?",
+                    "El terremoto de 1650",
+                    "La fundación del Cusco",
+                    "El Inti Raymi",
+                    "La independencia del Perú",
+                    "a"
+                ],
+                [
+                    11,
+                    5,
+                    "¿Maypiqa Inkaq Tawantinsuyoq qallarisqa?",
+                    "Qosqo",
+                    "Lima",
+                    "Arequipa",
+                    "Punu",
+                    "a"
+                ],
+                [
+                    12,
+                    6,
+                    "Imayna nirqan \"Hola\" runasimipi?",
+                    "Uqanchik",
+                    "Rimaykullayki",
+                    "Sulpayki",
+                    "Allinllachu",
+                    "b"
+                ]
+            ]
+        },
+        {
+            "type": "table",
+            "database": null,
+            "name": "Resultado",
+            "withoutRowId": false,
+            "strict": false,
+            "ddl": "CREATE TABLE Resultado (\n  id_resultado INTEGER PRIMARY KEY AUTOINCREMENT,\n  id_trivia INTEGER,\n  puntaje INTEGER,\n  fecha TEXT,\n  FOREIGN KEY(id_trivia) REFERENCES Trivia(id_trivia)\n)",
+            "columns": [
+                {
+                    "name": "id_resultado",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "PRIMARY KEY",
+                            "definition": "PRIMARY KEY AUTOINCREMENT"
+                        }
+                    ]
+                },
+                {
+                    "name": "id_trivia",
+                    "type": "INTEGER"
+                },
+                {
+                    "name": "puntaje",
+                    "type": "INTEGER"
+                },
+                {
+                    "name": "fecha",
+                    "type": "TEXT"
+                }
+            ],
+            "constraints": [
+                {
+                    "type": "FOREIGN KEY",
+                    "definition": "FOREIGN KEY(id_trivia) REFERENCES Trivia(id_trivia)\n"
+                }
+            ],
+            "rows": [
+                [
+                    1,
+                    1,
+                    100,
+                    "2025-10-09"
+                ],
+                [
+                    2,
+                    2,
+                    80,
+                    "2025-10-15"
+                ],
+                [
+                    3,
+                    3,
+                    90,
+                    "2025-10-22"
+                ],
+                [
+                    4,
+                    4,
+                    70,
+                    "2025-10-29"
+                ]
+            ]
+        },
+        {
+            "type": "table",
+            "database": null,
+            "name": "Trivia",
+            "withoutRowId": false,
+            "strict": false,
+            "ddl": "CREATE TABLE Trivia (\n  id_trivia INTEGER PRIMARY KEY AUTOINCREMENT,\n  id_categoria INTEGER,\n  nombre TEXT,\n  FOREIGN KEY(id_categoria) REFERENCES Categoria(id_categoria)\n)",
+            "columns": [
+                {
+                    "name": "id_trivia",
+                    "type": "INTEGER",
+                    "constraints": [
+                        {
+                            "type": "PRIMARY KEY",
+                            "definition": "PRIMARY KEY AUTOINCREMENT"
+                        }
+                    ]
+                },
+                {
+                    "name": "id_categoria",
+                    "type": "INTEGER"
+                },
+                {
+                    "name": "nombre",
+                    "type": "TEXT"
+                }
+            ],
+            "constraints": [
+                {
+                    "type": "FOREIGN KEY",
+                    "definition": "FOREIGN KEY(id_categoria) REFERENCES Categoria(id_categoria)\n"
+                }
+            ],
+            "rows": [
+                [
+                    1,
+                    1,
+                    "Trivia Historia del Cusco"
+                ],
+                [
+                    2,
+                    3,
+                    "Trivia Lengua Quechua"
+                ],
+                [
+                    3,
+                    4,
+                    "Trivia Arquitectura Inca"
+                ],
+                [
+                    4,
+                    5,
+                    "Trivia Festividades del Cusco"
+                ],
+                [
+                    5,
+                    6,
+                    "Qosqo Trivia Historia"
+                ],
+                [
+                    6,
+                    8,
+                    "Runasimi Trivia"
+                ]
+            ]
+        }
+    ]
+}
